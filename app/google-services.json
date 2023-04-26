@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "379504092874",
+    "firebase_url": "https://eventfiender-d375f-default-rtdb.firebaseio.com",
+    "project_id": "eventfiender-d375f",
+    "storage_bucket": "eventfiender-d375f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:379504092874:android:1b27a97180e9079b5d7633",
+        "android_client_info": {
+          "package_name": "com.example.eventfiender"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "379504092874-fq8rap776b6070e6vmenao6nrshbn3tg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsPW-faViC68cg9W6Yqv0Y0RmHOri7-3Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "379504092874-fq8rap776b6070e6vmenao6nrshbn3tg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
