@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.eventfiender.Adapter;
 import com.example.eventfiender.ListEntity;
+import com.example.eventfiender.RecyclerViewItemClickListener;
 import com.example.eventfiender.databinding.FragmentSearchBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +32,28 @@ public class SearchFragment extends Fragment {
     List<ListEntity> events = new ArrayList<>();
     private String LIST_KEY = "BaseEvents";
     private DatabaseReference eventsDB = FirebaseDatabase.getInstance().getReference(LIST_KEY);
-    private int NumberStart = 0;
+    private boolean Start = false;
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference ref;
+    private String email;
+    private String userID;
+
+    private void AdapterCall(){
+        Adapter adapter = new Adapter(getActivity(), events);
+
+        binding.recyclerView
+                .setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                DataSnapshot ds;
+                Toast.makeText(getActivity(), events.get(position).getEmail(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +62,10 @@ public class SearchFragment extends Fragment {
 
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        mAuth = FirebaseAuth.getInstance();
+        //email = mAuth.getCurrentUser().getEmail();
+        //userID = mAuth.getCurrentUser().getUid();
 
         eventsDB.addValueEventListener(new ValueEventListener() {
             @Override
@@ -51,13 +78,9 @@ public class SearchFragment extends Fragment {
                         events.add(value);
                     }
                 }
-                if (NumberStart == 0) {
-                    Adapter adapter = new Adapter(getActivity(), events);
-
-                    binding.recyclerView
-                            .setLayoutManager(new LinearLayoutManager(getActivity()));
-                    binding.recyclerView.setAdapter(adapter);
-                    NumberStart+=1;
+                if (!Start) {
+                    AdapterCall();
+                    Start = true;
                 }
 
             }
@@ -68,12 +91,8 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        if (NumberStart != 0) {
-            Adapter adapter = new Adapter(getActivity(), events);
-
-            binding.recyclerView
-                    .setLayoutManager(new LinearLayoutManager(getActivity()));
-            binding.recyclerView.setAdapter(adapter);
+        if (Start) {
+            AdapterCall();
         }
 
 

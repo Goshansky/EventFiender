@@ -9,11 +9,14 @@ import android.view.View;
 
 import com.example.eventfiender.databinding.ActivityCreateBinding;
 import com.example.eventfiender.ui.My.MyFragment;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.core.Context;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class CreateActivity extends AppCompatActivity {
 
@@ -21,9 +24,13 @@ public class CreateActivity extends AppCompatActivity {
     private DatabaseReference eventsDB;
     private String LIST_KEY = "BaseEvents";
 
-    String eventName, eventType, userID, info;
+    String eventName, eventType, info;
     List<ListEntity> events = new ArrayList<>();
 
+    private String userID;
+    private FirebaseAuth mAuth;
+    private DatabaseReference ref;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +46,18 @@ public class CreateActivity extends AppCompatActivity {
 
                 eventName = String.valueOf(binding.editTextFirst.getText());
                 eventType = String.valueOf(binding.editTextSecond.getText());
+                mAuth = FirebaseAuth.getInstance();
+                email = mAuth.getCurrentUser().getEmail();
+                userID = mAuth.getCurrentUser().getUid();
                 //eventName = binding.editTextFirst.getText().toString();
                 //eventType = binding.editTextSecond.getText().toString();
 
                 eventsDB = FirebaseDatabase.getInstance().getReference(LIST_KEY);
                 events.add(new ListEntity(
                         eventName,
-                        eventType
+                        eventType,
+                        userID,
+                        email
                         ));
                 eventsDB.push().setValue(events);
 
