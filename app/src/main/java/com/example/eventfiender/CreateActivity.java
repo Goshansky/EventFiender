@@ -24,7 +24,7 @@ public class CreateActivity extends AppCompatActivity {
     private DatabaseReference eventsDB;
     private String LIST_KEY = "BaseEvents";
 
-    String eventName, eventType, info;
+    String eventName, eventDate, eventAge, eventInfo, eventID, videoLink;
     List<ListEntity> events = new ArrayList<>();
 
     private String userID;
@@ -44,28 +44,29 @@ public class CreateActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(CreateActivity.this, MainActivity.class);
 
-                eventName = String.valueOf(binding.editTextFirst.getText());
-                eventType = String.valueOf(binding.editTextSecond.getText());
+                eventName = String.valueOf(binding.editEventName.getText());
+                eventDate = String.valueOf(binding.editEventDate.getText());
+                eventAge = String.valueOf(binding.editEventAge.getText());
+                eventInfo = String.valueOf(binding.editEventInfo.getText());
+                videoLink = String.valueOf(binding.editVideoLink.getText());
+
+
+                videoLink = videoLink.subSequence(videoLink.length()-11, videoLink.length()).toString();
                 mAuth = FirebaseAuth.getInstance();
                 email = mAuth.getCurrentUser().getEmail();
                 userID = mAuth.getCurrentUser().getUid();
-                //eventName = binding.editTextFirst.getText().toString();
-                //eventType = binding.editTextSecond.getText().toString();
 
                 eventsDB = FirebaseDatabase.getInstance().getReference(LIST_KEY);
                 events.add(new ListEntity(
                         eventName,
-                        eventType,
+                        eventDate,
+                        eventAge,
+                        eventInfo,
                         userID,
-                        email
+                        email,
+                        videoLink
                         ));
                 eventsDB.push().setValue(events);
-
-//                try {
-//                    Thread.sleep(2000); // задержка на 2 секунд
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
 
                 startActivity(intent);
                 finish();

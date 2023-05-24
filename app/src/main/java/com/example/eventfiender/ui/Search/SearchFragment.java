@@ -1,5 +1,6 @@
 package com.example.eventfiender.ui.Search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.eventfiender.Adapter;
+import com.example.eventfiender.EventActivity;
 import com.example.eventfiender.ListEntity;
 import com.example.eventfiender.RecyclerViewItemClickListener;
 import com.example.eventfiender.databinding.FragmentSearchBinding;
@@ -50,7 +52,14 @@ public class SearchFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 DataSnapshot ds;
-                Toast.makeText(getActivity(), events.get(position).getEmail(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), events.get(position).getEmail(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), EventActivity.class);
+                intent.putExtra("event_name", events.get(position).getEvent_name());
+                intent.putExtra("event_date", events.get(position).getEvent_date());
+                intent.putExtra("event_info", events.get(position).getEvent_info());
+                intent.putExtra("event_age", events.get(position).getEvent_age());
+                intent.putExtra("videoLink", events.get(position).getVideoLink());
+                startActivity(intent);
             }
         });
     }

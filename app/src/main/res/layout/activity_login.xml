@@ -23,6 +23,7 @@
         android:layout_below="@+id/email_login"
         android:layout_marginTop="30dp"
         android:id="@+id/password_login"
+        android:inputType="textPassword"
         />
 
     <Button

@@ -1,13 +1,23 @@
 package com.example.eventfiender;
 
 public class ListEntity {
-    private String header;
-    private String description;
-    private String userID;
-    private String info;
-    private String email;
+    private String event_name;
+    private String event_date;
+    private String event_age;
+    private String event_info;
+    private String eventID;
+    private String videoLink;
+
+    private String stadt;
+    private String event_image;
+
 
     private String user_name;
+    private String userID;
+    private String email;
+    private String user_image;
+    private String user_age;
+    private String user_info;
 
 
     public ListEntity() {
@@ -17,36 +27,93 @@ public class ListEntity {
         this.userID = userID;
     }
 
-
-    public ListEntity(String header, String description, String userID, String email) {
-        this.header = header;
-        this.description = description;
+    public ListEntity(String user_name, String user_age, String user_info, String userID, String email, String user_image) {
+        this.user_name = user_name;
+        this.user_age = user_age;
+        this.user_info = user_info;
         this.userID = userID;
         this.email = email;
+        this.user_image = user_image;
     }
-    public String setUser_name(){return user_name;}
+
+
+    public ListEntity(String event_name, String event_date, String event_age, String event_info, String userID, String email, String videoLink) {
+        this.event_name = event_name;
+        this.event_date = event_date;
+        this.event_age = event_age;
+        this.event_info = event_info;
+        this.userID = userID;
+        this.email = email;
+        this.videoLink = videoLink;
+    }
+
+    public void setEvent_name(String event_name) {
+        this.event_name = event_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public void setUser_age(String user_age) {
+        this.user_age = user_age;
+    }
+
+    public void setUser_info(String user_info) {
+        this.user_info = user_info;
+    }
+
+    public String getVideoLink() {
+        return videoLink;
+    }
+
+    public String getEvent_name() {
+        return event_name;
+    }
+
+    public String getEvent_date() {
+        return event_date;
+    }
+
+    public String getEvent_age() {
+        return event_age;
+    }
+
+    public String getEvent_image() {
+        return event_image;
+    }
+
+    public String getEvent_info() {
+        return event_info;
+    }
+
+    public String getEventID() {
+        return eventID;
+    }
+
+
 
     public String getUser_name() {
         return user_name;
-    }
-
-    public String getHeader() {
-        return header;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public String getUserID() {
         return userID;
     }
 
-    public String getInfo() {
-        return info;
-    }
-
     public String getEmail() {
         return email;
+    }
+
+    public String getUser_image() {
+        return user_image;
+    }
+
+    public String getUser_age() {
+        return user_age;
+    }
+
+    public String getUser_info() {
+        return user_info;
     }
 }

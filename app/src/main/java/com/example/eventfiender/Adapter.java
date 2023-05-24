@@ -46,8 +46,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
             int position
     ) {
         ListEntity item = data.get(position);
-        holder.header.setText(item.getHeader());
-        holder.description.setText(item.getDescription());
+        holder.event_name.setText(item.getEvent_name());
+        holder.event_date.setText("Дата: "+item.getEvent_date());
+        holder.event_age.setText("Возраст: "+item.getEvent_age()+"+");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,13 +68,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
 
     // Хранит переменные вьюх в разметке элементов списка
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView header;
-        TextView description;
+        TextView event_name;
+        TextView event_date;
+        TextView event_age;
 
         public ViewHolder(@NonNull ListItemBinding binding) {
             super(binding.getRoot());
-            header = binding.header;
-            description = binding.description;
+            event_name = binding.eventName;
+            event_date = binding.eventDate;
+            event_age = binding.eventAge;
         }
     }
 }
