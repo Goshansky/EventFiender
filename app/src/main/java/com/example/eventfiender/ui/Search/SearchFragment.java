@@ -84,6 +84,7 @@ public class SearchFragment extends Fragment {
                 for(DataSnapshot ds : snapshot.getChildren()){
                     for (DataSnapshot ds2 : ds.getChildren()){
                         ListEntity value = ds2.getValue(ListEntity.class);
+                        eventsDB.child(ds.getKey()).child("0").child("eventID").setValue(ds.getKey());
                         events.add(value);
                     }
                 }

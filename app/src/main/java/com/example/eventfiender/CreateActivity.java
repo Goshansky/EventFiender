@@ -24,7 +24,7 @@ public class CreateActivity extends AppCompatActivity {
     private DatabaseReference eventsDB;
     private String LIST_KEY = "BaseEvents";
 
-    String eventName, eventDate, eventAge, eventInfo, eventID, videoLink;
+    String eventName, eventDate, eventAge, eventInfo, eventID, videoLink, stadt, eventImage;
     List<ListEntity> events = new ArrayList<>();
 
     private String userID;
@@ -50,6 +50,8 @@ public class CreateActivity extends AppCompatActivity {
                 eventInfo = String.valueOf(binding.editEventInfo.getText());
                 videoLink = String.valueOf(binding.editVideoLink.getText());
 
+                stadt = "Саратов";
+                eventImage = "standartAva.png";
 
                 videoLink = videoLink.subSequence(videoLink.length()-11, videoLink.length()).toString();
                 mAuth = FirebaseAuth.getInstance();
@@ -57,14 +59,16 @@ public class CreateActivity extends AppCompatActivity {
                 userID = mAuth.getCurrentUser().getUid();
 
                 eventsDB = FirebaseDatabase.getInstance().getReference(LIST_KEY);
-                events.add(new ListEntity(
+                events.add(new ListEntity(eventsDB.getKey(),
                         eventName,
                         eventDate,
                         eventAge,
                         eventInfo,
                         userID,
                         email,
-                        videoLink
+                        videoLink,
+                        stadt,
+                        eventImage
                         ));
                 eventsDB.push().setValue(events);
 

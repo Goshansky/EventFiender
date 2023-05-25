@@ -19,6 +19,7 @@ import com.example.eventfiender.Adapter;
 import com.example.eventfiender.CreateActivity;
 import com.example.eventfiender.EventActivity;
 import com.example.eventfiender.ListEntity;
+import com.example.eventfiender.MyEventActivity;
 import com.example.eventfiender.RecyclerViewItemClickListener;
 import com.example.eventfiender.databinding.FragmentMyBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -65,7 +66,7 @@ public class MyFragment extends Fragment {
             public void onItemClick(View view, int position) {
                 DataSnapshot ds;
                 //Toast.makeText(getActivity(), email, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), EventActivity.class);
+                Intent intent = new Intent(getActivity(), MyEventActivity.class);
                 intent.putExtra("event_name", events.get(position).getEvent_name());
                 intent.putExtra("event_date", events.get(position).getEvent_date());
                 intent.putExtra("event_info", events.get(position).getEvent_info());
@@ -111,6 +112,7 @@ public class MyFragment extends Fragment {
                         //System.out.println(ds2.getValue(ListEntity.class).getUserID());
                         ListEntity value = ds2.getValue(ListEntity.class);
                         String valieDB = ds2.getValue(ListEntity.class).getUserID();
+                        //value.setEventID(ds.getKey());
                         if (Objects.equals(userID, valieDB)) {
                             events.add(value);
                         }

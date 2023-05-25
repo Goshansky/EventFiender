@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterActivity"
+    android:background="#FD51C9DA">
 
     <EditText
         android:id="@+id/email_register"
@@ -35,8 +36,21 @@
         android:layout_below="@+id/password_register"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:background="@drawable/rounded"
-        android:text="Register"
+        android:text="регистрация"
+        android:backgroundTint="#008080"
         android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:textStyle="bold"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/email_register"
+        android:layout_alignStart="@+id/email_register"
+        android:layout_alignEnd="@+id/email_register"
+        android:layout_marginBottom="80dp"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:text="Регистрация" />
 
 </RelativeLayout>

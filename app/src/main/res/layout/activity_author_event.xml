@@ -6,17 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.Settings.SettingsFragment"
     android:paddingBottom="?attr/actionBarSize"
-    android:background="#00BCD4">
-
-    <Button
-        android:id="@+id/logout_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        android:backgroundTint="#0599AC"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    android:background="#f2f2f2">
 
     <ImageView
         android:id="@+id/userImage"
@@ -28,21 +18,23 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/img" />
 
-    <EditText
+    <TextView
         android:id="@+id/editName"
         android:hint="Имя"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="8"
         android:layout_marginTop="20dp"
+        android:textSize="25sp"
         android:inputType="textPersonName"
         android:text=""
-        android:backgroundTint="@color/black"
+        android:textColor="#3d3d5c"
+        android:backgroundTint="#3d3d5c "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/userImage"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/editAge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,22 +42,11 @@
         android:inputType="number"
         android:hint="Возраст"
         android:layout_marginTop="20dp"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/userImage"
         app:layout_constraintTop_toBottomOf="@+id/editName" />
 
-    <EditText
-        android:id="@+id/editInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:hint="О себе:"
-        app:layout_constraintBottom_toTopOf="@+id/logout_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userImage" />
 
     <TextView
         android:id="@+id/textView"
@@ -80,15 +61,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userImage" />
 
-    <Button
-        android:id="@+id/button_save"
+    <TextView
+        android:id="@+id/editInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Сохранить"
-        android:backgroundTint="#4C95E1"
-        app:layout_constraintBottom_toTopOf="@+id/logout_btn"
+        android:layout_marginTop="104dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="О себе:"
+        android:inputType="textMultiLine"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userImage" />
+
+    <TextView
+        android:id="@+id/textListEvents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Список событий"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editInfo" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@+id/textListEvents"
+        tools:layout_editor_absoluteX="16dp"
+        tools:listitem="@layout/list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

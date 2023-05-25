@@ -13,7 +13,7 @@
         android:id="@+id/eventName"
         android:layout_width="250dp"
         android:layout_height="30dp"
-
+        android:textColor="#3d3d5c"
         android:textSize="20sp"
         android:textStyle="bold"
 
@@ -34,7 +34,7 @@
 
     <TextView
         android:id="@+id/eventDate"
-
+        android:textColor="#3d3d5c"
         android:layout_width="250dp"
         android:layout_height="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,6 +48,7 @@
         android:layout_width="250dp"
         android:layout_height="20dp"
         android:text="Возраст:"
+        android:textColor="#3d3d5c"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/eventImage"

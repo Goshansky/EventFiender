@@ -3,23 +3,21 @@ package com.example.eventfiender;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 import com.example.eventfiender.databinding.ActivityEventBinding;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-public class EventActivity extends AppCompatActivity {
+public class MyEventActivity extends AppCompatActivity {
+
     private ActivityEventBinding binding;
-    private String eventName, eventDate, eventAge, eventInfo, myVideoYoutubeId, stadt, eventImage, eventID;
+    private String eventName, eventDate, eventAge, eventInfo, myVideoYoutubeId, event_ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +63,26 @@ public class EventActivity extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
+            case R.id.action_edit:
+                this.finish();
+                Intent intent = new Intent(MyEventActivity.this, EditEventActivity.class);
+                intent.putExtra("uniqueID", event_ID);
+                startActivity(intent);
+                this.finish();
+                return true;
+            case R.id.action_delete:
+                FirebaseDatabase.getInstance()
+                        .getReference("BaseEvents")
+                        .child(event_ID).removeValue();
+                this.finish();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 }

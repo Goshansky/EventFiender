@@ -1,23 +1,23 @@
 package com.example.eventfiender;
 
 public class ListEntity {
-    private String event_name;
-    private String event_date;
-    private String event_age;
-    private String event_info;
-    private String eventID;
-    private String videoLink;
+    private String event_name; // Название события
+    private String event_date; // Дата проведения
+    private String event_age; // Возрастные ограничения
+    private String event_info; // Информация о событие
+    private String eventID; // id события
+    private String videoLink; // Видео-анонс
 
-    private String stadt;
-    private String event_image;
+    private String stadt; // Город проведения
+    private String event_image; // Изображение события
 
 
-    private String user_name;
-    private String userID;
-    private String email;
-    private String user_image;
-    private String user_age;
-    private String user_info;
+    private String user_name; // Имя пользователя
+    private String userID; // id пользователя
+    private String email; // Почта пользователя
+    private String user_image; // Фотка пользователя
+    private String user_age; // Возраст пользователя
+    private String user_info; // Информация о пользователе
 
 
     public ListEntity() {
@@ -37,7 +37,8 @@ public class ListEntity {
     }
 
 
-    public ListEntity(String event_name, String event_date, String event_age, String event_info, String userID, String email, String videoLink) {
+    public ListEntity(String eventID, String event_name, String event_date, String event_age, String event_info, String userID, String email, String videoLink, String stadt, String event_image) {
+        this.eventID = eventID;
         this.event_name = event_name;
         this.event_date = event_date;
         this.event_age = event_age;
@@ -45,6 +46,8 @@ public class ListEntity {
         this.userID = userID;
         this.email = email;
         this.videoLink = videoLink;
+        this.stadt = stadt;
+        this.event_image = event_image;
     }
 
     public void setEvent_name(String event_name) {
@@ -61,6 +64,10 @@ public class ListEntity {
 
     public void setUser_info(String user_info) {
         this.user_info = user_info;
+    }
+
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
     }
 
     public String getVideoLink() {
@@ -92,6 +99,9 @@ public class ListEntity {
     }
 
 
+    public String getStadt() {
+        return stadt;
+    }
 
     public String getUser_name() {
         return user_name;
