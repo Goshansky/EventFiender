@@ -76,6 +76,7 @@ public class MyEventActivity extends AppCompatActivity {
                 this.finish();
                 return true;
             case R.id.action_delete:
+                //
                 // Кнопка удаления события
                 Intent intent2 = new Intent(MyEventActivity.this, MainActivity.class);
                 FirebaseDatabase.getInstance()
