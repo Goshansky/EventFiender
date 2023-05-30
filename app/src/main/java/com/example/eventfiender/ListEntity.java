@@ -27,6 +27,15 @@ public class ListEntity {
         this.userID = userID;
     }
 
+    /**
+     * Конструктор для пользовательских данных
+     * @param user_name имя пользователя
+     * @param user_age возраст пользователя
+     * @param user_info информация о пользователе
+     * @param userID id пользователя
+     * @param email почта пользователя
+     * @param user_image фотография пользователя
+     */
     public ListEntity(String user_name, String user_age, String user_info, String userID, String email, String user_image) {
         this.user_name = user_name;
         this.user_age = user_age;
@@ -37,6 +46,19 @@ public class ListEntity {
     }
 
 
+    /**
+     * Конструктор для данных о событии
+     * @param eventID id события
+     * @param event_name название события
+     * @param event_date дата проведения события
+     * @param event_age возрастные ограничения
+     * @param event_info информация о событии
+     * @param userID id автора события
+     * @param email почта автора события
+     * @param videoLink видео-анонс предстоящего события
+     * @param stadt город проведения
+     * @param event_image фото события
+     */
     public ListEntity(String eventID, String event_name, String event_date, String event_age, String event_info, String userID, String email, String videoLink, String stadt, String event_image) {
         this.eventID = eventID;
         this.event_name = event_name;
@@ -69,6 +91,8 @@ public class ListEntity {
     public void setEventID(String eventID) {
         this.eventID = eventID;
     }
+
+    // Геттеры
 
     public String getVideoLink() {
         return videoLink;

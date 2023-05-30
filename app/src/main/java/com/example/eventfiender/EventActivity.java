@@ -3,8 +3,10 @@ package com.example.eventfiender;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -19,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class EventActivity extends AppCompatActivity {
     private ActivityEventBinding binding;
-    private String eventName, eventDate, eventAge, eventInfo, myVideoYoutubeId, stadt, eventImage, eventID;
+    private String eventName, eventDate, eventAge, eventInfo, myVideoYoutubeId, stadt, eventImage, eventID, email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,16 +34,17 @@ public class EventActivity extends AppCompatActivity {
         eventAge = arguments.getString("event_age");
         eventInfo = arguments.getString("event_info");
         myVideoYoutubeId = arguments.getString("videoLink").toString();
-        //Toast.makeText(this, eventName, Toast.LENGTH_SHORT).show();
+        email = arguments.getString("email").toString();
+        stadt = arguments.getString("stadt").toString();
 
         binding.eventName.setText(eventName);
         binding.eventDate.setText("Дата события: "+eventDate);
         binding.eventAge.setText("Возрастные ограничения: "+eventAge+"+");
         binding.eventInfo.setText("Информация о событии:\n"+eventInfo);
+        binding.textStadt.setText("Город: "+stadt);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         WebView youtubeWebView;
-        //Toast.makeText(this, myVideoYoutubeId, Toast.LENGTH_SHORT).show();
         youtubeWebView = binding.youtubeWebView;
         youtubeWebView.setWebViewClient(new WebViewClient() {
             @Override
@@ -57,6 +60,15 @@ public class EventActivity extends AppCompatActivity {
 
         youtubeWebView.loadUrl("https://www.youtube.com/embed/" + myVideoYoutubeId);
         binding.event.setText("Cсылка на видео: \nhttps://youtu.be/" + myVideoYoutubeId);
+
+        binding.author.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EventActivity.this, AuthorEvent.class);
+                intent.putExtra("email", email);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.Settings.SettingsFragment"
-    android:paddingBottom="?attr/actionBarSize"
     android:background="#f2f2f2">
 
     <ImageView
@@ -20,28 +19,28 @@
 
     <TextView
         android:id="@+id/editName"
-        android:hint="Имя"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="8"
+        android:layout_width="202dp"
+        android:layout_height="39dp"
         android:layout_marginTop="20dp"
-        android:textSize="25sp"
+        android:backgroundTint="#3d3d5c "
+        android:ems="8"
+        android:hint="Имя"
         android:inputType="textPersonName"
         android:text=""
-        android:textColor="#3d3d5c"
-        android:backgroundTint="#3d3d5c "
+        android:textColor="@color/black"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/userImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/editAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="8"
-        android:inputType="number"
-        android:hint="Возраст"
+        android:layout_width="195dp"
+        android:layout_height="39dp"
         android:layout_marginTop="20dp"
+        android:ems="8"
+        android:hint="Возраст"
+        android:textColor="@color/black"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/userImage"
@@ -55,7 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="40dp"
-        android:text="Информация о себе:"
+        android:textColor="@color/black"
+        android:text="Информация:"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,6 +63,7 @@
 
     <TextView
         android:id="@+id/editInfo"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="104dp"
@@ -72,10 +73,12 @@
         android:inputType="textMultiLine"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userImage" />
 
     <TextView
+        android:textColor="@color/black"
         android:id="@+id/textListEvents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

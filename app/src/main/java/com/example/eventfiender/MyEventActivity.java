@@ -11,17 +11,17 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.example.eventfiender.databinding.ActivityEventBinding;
+import com.example.eventfiender.databinding.ActivityMyEventBinding;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MyEventActivity extends AppCompatActivity {
 
-    private ActivityEventBinding binding;
-    private String eventName, eventDate, eventAge, eventInfo, myVideoYoutubeId, event_ID;
+    private ActivityMyEventBinding binding;
+    private String eventName, eventDate, eventAge, eventInfo, myVideoYoutubeId, eventID, stadt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityEventBinding.inflate(getLayoutInflater());
+        binding = ActivityMyEventBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         Bundle arguments = getIntent().getExtras();
@@ -30,16 +30,17 @@ public class MyEventActivity extends AppCompatActivity {
         eventAge = arguments.getString("event_age");
         eventInfo = arguments.getString("event_info");
         myVideoYoutubeId = arguments.getString("videoLink").toString();
-        //Toast.makeText(this, eventName, Toast.LENGTH_SHORT).show();
+        eventID = arguments.getString("eventID").toString();
+        stadt = arguments.getString("stadt").toString();
 
         binding.eventName.setText(eventName);
         binding.eventDate.setText("Дата события: "+eventDate);
         binding.eventAge.setText("Возрастные ограничения: "+eventAge+"+");
         binding.eventInfo.setText("Информация о событии:\n"+eventInfo);
+        binding.textStadt.setText("Город: "+stadt);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         WebView youtubeWebView;
-        //Toast.makeText(this, myVideoYoutubeId, Toast.LENGTH_SHORT).show();
         youtubeWebView = binding.youtubeWebView;
         youtubeWebView.setWebViewClient(new WebViewClient() {
             @Override
@@ -66,14 +67,14 @@ public class MyEventActivity extends AppCompatActivity {
             case R.id.action_edit:
                 this.finish();
                 Intent intent = new Intent(MyEventActivity.this, EditEventActivity.class);
-                intent.putExtra("uniqueID", event_ID);
+                intent.putExtra("eventID", eventID);
                 startActivity(intent);
                 this.finish();
                 return true;
             case R.id.action_delete:
                 FirebaseDatabase.getInstance()
                         .getReference("BaseEvents")
-                        .child(event_ID).removeValue();
+                        .child(eventID).removeValue();
                 this.finish();
                 return true;
         }

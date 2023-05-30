@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.Search.SearchFragment"
     android:layout_marginBottom="?attr/actionBarSize"
-    android:background="#00BCD4">
+    android:background="#f2f2f2">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

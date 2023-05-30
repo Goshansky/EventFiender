@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EventActivity"
+    android:background="#f2f2f2"
     >
 
     <TextView
@@ -52,7 +53,7 @@
         android:layout_marginStart="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Город"
+        android:text="Город: Саратов"
         android:layout_marginBottom="20dp"
         android:textSize="18sp" />
 
