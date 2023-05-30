@@ -18,17 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
          />
 
-    <Button
-        android:id="@+id/download"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="загрузить картинку"
-
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editEventInfo" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"

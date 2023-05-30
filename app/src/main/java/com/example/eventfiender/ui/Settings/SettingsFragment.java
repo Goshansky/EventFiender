@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.example.eventfiender.ListEntity;
@@ -30,44 +29,35 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-
 public class SettingsFragment extends Fragment {
 
-    private Uri filePath;
-
-    private final int PICK_IMAGE_REQUEST = 71;
-
-
+    private Uri filePath; // Выбранное фото и файла
+    private final int PICK_IMAGE_REQUEST = 71; // Код запроса для изображения
     private FragmentSettingsBinding binding;
     private final String LIST_KEY = "BaseUsers";
     private DatabaseReference usersDB = FirebaseDatabase.getInstance().getReference(LIST_KEY);
-    List<ListEntity> users = new ArrayList<>();
-
-    boolean user_ref = false;
-
+    List<ListEntity> users = new ArrayList<>(); // Список пользователой
     private FirebaseAuth mAuth;
-    private DatabaseReference ref;
+    FirebaseStorage storage = FirebaseStorage.getInstance(); // Для работы с изображениями в firebase
+    // Данные о пользователе
     private String email;
     private String userID;
-
     private String user_name;
     private String user_age;
     private String user_info;
     private String user_image;
-    private String random_image;
+    // Переменная, отвечающая заданные о пользователе.
+    // Если он не вводил никаких данных, то у него автоматически ставится стандартная аватарка.
+    // Если данные были введены, то показываем их на экране.
+    boolean user_ref = false;
 
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageRef = storage.getReferenceFromUrl("gs://eventfiender-d375f.appspot.com");
-
-
-
+    // Выбор изображения
     private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -75,14 +65,15 @@ public class SettingsFragment extends Fragment {
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
 
     }
-
+    // Загрузка изображения в firebase storage а также прогресс бар загрузки
     private void uploadImage(){
+        // Если мы выбрали фотографию
         if(filePath != null)
         {
             final ProgressDialog progressDialog = new ProgressDialog(getActivity());
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
-            random_image = UUID.randomUUID().toString();
+            String random_image = UUID.randomUUID().toString(); // Уникальный идентификатор изображения
             user_image = random_image;
             StorageReference ref = storage.getReference().child("images/"+ random_image);
             ref.putFile(filePath)
@@ -90,14 +81,14 @@ public class SettingsFragment extends Fragment {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
-                            Toast.makeText(getActivity(), "Uploaded", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Загружено", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(getActivity(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Ошибка "+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -105,14 +96,16 @@ public class SettingsFragment extends Fragment {
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
                                     .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                            progressDialog.setMessage("Загрузка "+(int)progress+"%");
                         }
                     });
         }
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // В этом проверяем, будет ли код запроса равен PICK_IMAGE_REQUEST,
+        // с результатом, равным RESULT_OK, и доступными данными.
+        // Если все это верно, то отобразить выбранное изображение в ImageView.
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE_REQUEST
                 && data != null && data.getData() != null )
@@ -129,8 +122,8 @@ public class SettingsFragment extends Fragment {
         }
     }
 
+    // Показ изображения пользователя на экране, выгружая его из firebase storage
     public void downloadImage(){
-        System.out.println(user_image+"\n\n\n\n\n\n\n");
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReferenceFromUrl("gs://eventfiender-d375f.appspot.com");
 
@@ -142,7 +135,7 @@ public class SettingsFragment extends Fragment {
                         .into(binding.userImage);
             }
         });
-
+        // При нажатии на фото, можно его поменять
         binding.userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,14 +161,13 @@ public class SettingsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     for (DataSnapshot ds2 : ds.getChildren()) {
-                        ListEntity value = ds2.getValue(ListEntity.class);
                         String valieDB = ds2.getValue(ListEntity.class).getEmail();
+                        // Если данные о таком пользователе есть, то выгружаем его данные на экран
                         if (Objects.equals(email, valieDB)) {
                             binding.editName.setText(ds2.getValue(ListEntity.class).getUser_name().toString());
                             binding.editAge.setText(ds2.getValue(ListEntity.class).getUser_age().toString());
                             binding.editInfo.setText(ds2.getValue(ListEntity.class).getUser_info().toString());
                             user_image = ds2.getValue(ListEntity.class).getUser_image().toString();
-                            System.out.println(user_image + "\n\n\n\n\n\n\n");
                             downloadImage();
                             user_ref = true;
 
@@ -183,6 +175,7 @@ public class SettingsFragment extends Fragment {
                     }
                 }
                 if (!user_ref) {
+                    // Иначе ставим стандартную фотку
                     user_image = "standartAva.png";
                     downloadImage();
                 }
@@ -198,64 +191,72 @@ public class SettingsFragment extends Fragment {
         binding.buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(user_image+"\n\n\n\n\n\n");
                 if (user_image == null) user_image = "standartAva.png";
                 user_name = String.valueOf(binding.editName.getText());
                 user_age = String.valueOf(binding.editAge.getText());
                 user_info = String.valueOf(binding.editInfo.getText());
 
-                mAuth = FirebaseAuth.getInstance();
-                email = mAuth.getCurrentUser().getEmail();
-                userID = mAuth.getCurrentUser().getUid();
+                // Если пользователь ввел данные о себе
+                if (!user_info.isEmpty() & !user_age.isEmpty() & !user_name.isEmpty()) {
 
-                uploadImage();
-                filePath = null;
+                    mAuth = FirebaseAuth.getInstance();
+                    email = mAuth.getCurrentUser().getEmail();
+                    userID = mAuth.getCurrentUser().getUid();
 
-                if (!user_ref) {
-                    usersDB = FirebaseDatabase.getInstance().getReference(LIST_KEY);
-                    users.add(new ListEntity(
-                            user_name,
-                            user_age,
-                            user_info,
-                            userID,
-                            email,
-                            user_image
-                    ));
-                    usersDB.push().setValue(users);
-                }
-                else{
+                    uploadImage();
+                    filePath = null;
 
-                    usersDB.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for(DataSnapshot ds : snapshot.getChildren()){
-                                for (DataSnapshot ds2 : ds.getChildren()){
-                                    ListEntity value = ds2.getValue(ListEntity.class);
-                                    String valieDB = ds2.getValue(ListEntity.class).getEmail();
-                                    if (Objects.equals(email, valieDB)) {
-                                        usersDB.child(ds.getKey()).child("0").child("user_name").setValue(user_name);
-                                        usersDB.child(ds.getKey()).child("0").child("user_age").setValue(user_age);
-                                        usersDB.child(ds.getKey()).child("0").child("user_info").setValue(user_info);
-                                        usersDB.child(ds.getKey()).child("0").child("user_image").setValue(user_image);
-                                        user_ref = true;
+                    // Если пользователь новый, то заносим его в бд
+                    if (!user_ref) {
+                        usersDB = FirebaseDatabase.getInstance().getReference(LIST_KEY);
+                        users.add(new ListEntity(
+                                user_name,
+                                user_age,
+                                user_info,
+                                userID,
+                                email,
+                                user_image
+                        ));
+                        usersDB.push().setValue(users);
+                    }
+                    // Иначе изменяем данные о нём
+                    else {
 
+                        usersDB.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot ds : snapshot.getChildren()) {
+                                    for (DataSnapshot ds2 : ds.getChildren()) {
+                                        String valieDB = ds2.getValue(ListEntity.class).getEmail();
+                                        if (Objects.equals(email, valieDB)) {
+                                            usersDB.child(ds.getKey()).child("0").child("user_name").setValue(user_name);
+                                            usersDB.child(ds.getKey()).child("0").child("user_age").setValue(user_age);
+                                            usersDB.child(ds.getKey()).child("0").child("user_info").setValue(user_info);
+                                            usersDB.child(ds.getKey()).child("0").child("user_image").setValue(user_image);
+                                            user_ref = true;
+
+                                        }
                                     }
                                 }
+
                             }
 
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(getActivity(), "Ошибка чтения БД", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(getActivity(), "Ошибка чтения БД", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
 
+                    }
+
+                }
+                else {
+                    Toast.makeText(getActivity(), "Вы не ввели данные о себе", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
+        // Обработчик кнопки для выхода из аккаунта
         binding.logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

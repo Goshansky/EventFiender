@@ -7,9 +7,7 @@ public class ListEntity {
     private String event_info; // Информация о событие
     private String eventID; // id события
     private String videoLink; // Видео-анонс
-
     private String stadt; // Город проведения
-    private String event_image; // Изображение события
 
 
     private String user_name; // Имя пользователя
@@ -21,10 +19,6 @@ public class ListEntity {
 
 
     public ListEntity() {
-    }
-    public ListEntity(String user_name, String userID) {
-        this.user_name = user_name;
-        this.userID = userID;
     }
 
     /**
@@ -57,9 +51,8 @@ public class ListEntity {
      * @param email почта автора события
      * @param videoLink видео-анонс предстоящего события
      * @param stadt город проведения
-     * @param event_image фото события
      */
-    public ListEntity(String eventID, String event_name, String event_date, String event_age, String event_info, String userID, String email, String videoLink, String stadt, String event_image) {
+    public ListEntity(String eventID, String event_name, String event_date, String event_age, String event_info, String userID, String email, String videoLink, String stadt) {
         this.eventID = eventID;
         this.event_name = event_name;
         this.event_date = event_date;
@@ -69,7 +62,6 @@ public class ListEntity {
         this.email = email;
         this.videoLink = videoLink;
         this.stadt = stadt;
-        this.event_image = event_image;
     }
 
     public void setEvent_name(String event_name) {
@@ -108,10 +100,6 @@ public class ListEntity {
 
     public String getEvent_age() {
         return event_age;
-    }
-
-    public String getEvent_image() {
-        return event_image;
     }
 
     public String getEvent_info() {
